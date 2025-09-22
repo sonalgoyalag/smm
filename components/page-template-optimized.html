@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>सांवरिया मित्र मंडल | (गौर सिटी )</title>
+    
+    <!-- Performance: Preload critical resources -->
+    <link rel="preload" href="assets/css/critical.css" as="style">
+    <link rel="preload" href="assets/js/components-optimized.js" as="script">
+    <link rel="preload" href="components/header.html" as="fetch" crossorigin>
+    <link rel="preload" href="components/footer.html" as="fetch" crossorigin>
+    
+    <!-- Critical CSS - loads first -->
+    <link rel="stylesheet" href="assets/css/critical.css" />
+    
+    <!-- favicons Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicons/favicon-16x16.png" />
+    <meta name="description" content="Sanwariya Mitra Mandal - A charitable organization dedicated to the service of Khatu Shyam Baba and community welfare in Gaur City, Greater Noida West." />
+
+    <!-- Performance: DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+    <!-- fonts - load async -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    
+    <!-- Non-critical CSS - load asynchronously -->
+    <script>
+        // Load non-critical CSS asynchronously
+        function loadCSS(href) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = href;
+            link.media = 'print';
+            link.onload = function() { this.media = 'all'; };
+            document.head.appendChild(link);
+        }
+        
+        // Load fonts and other CSS after critical path
+        setTimeout(() => {
+            loadCSS('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap');
+            loadCSS('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
+            loadCSS('https://fonts.googleapis.com/css2?family=Castoro&display=swap');
+            loadCSS('https://fonts.googleapis.com/css2?family=Schoolbell&display=swap');
+            
+            // Load vendor styles
+            loadCSS('assets/vendors/bootstrap/css/bootstrap.min.css');
+            loadCSS('assets/vendors/animate/animate.min.css');
+            loadCSS('assets/vendors/fontawesome/css/all.min.css');
+            loadCSS('assets/vendors/jquery-magnific-popup/jquery.magnific-popup.css');
+            loadCSS('assets/vendors/tiny-slider/tiny-slider.css');
+            loadCSS('assets/vendors/cleenhearts-icons/style.css');
+            loadCSS('assets/vendors/swiper/css/swiper-bundle.min.css');
+            loadCSS('assets/vendors/owl-carousel/css/owl.carousel.min.css');
+            loadCSS('assets/vendors/owl-carousel/css/owl.theme.default.min.css');
+            
+            // Load main template styles last
+            loadCSS('assets/css/cleenhearts.css');
+        }, 100);
+    </script>
+</head>
+
+<body>
+    <div class="preloader">
+        <div class="preloader__image" style="background-image: url(assets/images/loader.png);"></div>
+    </div>
+    <!-- /.preloader -->
+    <div class="page-wrapper">
+        <!-- Header Component -->
+        <div id="header-component"></div>
+        
+        <!-- PAGE CONTENT GOES HERE -->
+        <main>
+            <!-- Add your page-specific content here -->
+        </main>
+        
+        <!-- Footer Component -->
+        <div id="footer-component"></div>
+    </div><!-- /.page-wrapper -->
+
+    <!-- Mobile Navigation Component -->
+    <div id="mobile-nav-component"></div>
+    
+    <!-- Common Elements Component (search popup, scroll to top) -->
+    <div id="common-elements-component"></div>
+
+    <!-- Sidebar Component -->
+    <div id="sidebar-component"></div>
+
+    <!-- Scripts - Load in optimal order -->
+    
+    <!-- Critical scripts first -->
+    <script src="assets/vendors/jquery/jquery-3.7.0.min.js"></script>
+    <script src="assets/js/components-optimized.js"></script>
+    
+    <!-- Non-critical scripts - load asynchronously after page load -->
+    <script>
+        window.addEventListener('load', function() {
+            // Load remaining scripts after page is fully loaded
+            const scripts = [
+                'assets/vendors/bootstrap/js/bootstrap.bundle.min.js',
+                'assets/vendors/jarallax/jarallax.min.js',
+                'assets/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js',
+                'assets/vendors/jquery-appear/jquery.appear.min.js',
+                'assets/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js',
+                'assets/vendors/tiny-slider/tiny-slider.js',
+                'assets/vendors/swiper/js/swiper-bundle.min.js',
+                'assets/vendors/owl-carousel/js/owl.carousel.min.js',
+                'assets/vendors/wow/wow.js',
+                'assets/vendors/imagesloaded/imagesloaded.min.js',
+                'assets/js/cleenhearts.js'
+            ];
+            
+            scripts.forEach((src, index) => {
+                setTimeout(() => {
+                    const script = document.createElement('script');
+                    script.src = src;
+                    script.async = true;
+                    document.body.appendChild(script);
+                }, index * 50); // Stagger loading
+            });
+        });
+    </script>
+    
+    <!-- Performance monitoring -->
+    <script>
+        if ('performance' in window) {
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    const perf = performance.getEntriesByType('navigation')[0];
+                    console.log('Page load time:', perf.loadEventEnd - perf.loadEventStart, 'ms');
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+</html>

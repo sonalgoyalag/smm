@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://sanwariyamitramandal.com/sitemap.xml
+
+# Allow specific paths
+Allow: /assets/
+Allow: /components/
+
+# Disallow backup files
+Disallow: *.backup
+Disallow: *.seo-backup
+
+# Crawl delay
+Crawl-delay: 1
