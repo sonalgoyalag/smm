@@ -6333,9 +6333,9 @@ body.megamenu-popup-active .mobile-nav__content {
 
 .mobile-nav__wrapper.expanded {
   opacity: 1;
-  transform: translateX(0%);
+  /* transform: translateX(0%);
   visibility: visible;
-  transition: transform 500ms ease 0ms, visibility 500ms ease 0ms;
+  transition: transform 500ms ease 0ms, visibility 500ms ease 0ms; */
 }
 .mobile-nav__wrapper.expanded .mobile-nav__content {
   opacity: 1;

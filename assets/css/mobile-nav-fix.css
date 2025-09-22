@@ -1,0 +1,239 @@
+/* Mobile Navigation Fixes */
+
+/* Disable any conflicting mobile nav animations from the original theme */
+.mobile-nav__wrapper {
+    transform: none !important;
+}
+
+.mobile-nav__wrapper.animating {
+    pointer-events: none;
+}
+
+/* Ensure mobile nav button is visible on mobile */
+.mobile-nav__btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.mobile-nav__btn span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #333;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Show mobile nav button on mobile devices */
+@media (max-width: 991px) {
+    .mobile-nav__btn {
+        display: flex;
+    }
+    
+    .main-header__nav {
+        display: none;
+    }
+    
+    .main-header-three__social {
+        display: none;
+    }
+    
+    .main-header__btn {
+        display: none;
+    }
+}
+
+/* Mobile nav wrapper styles */
+.mobile-nav__wrapper {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    z-index: 9999;
+    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+    transform: translateX(0);
+}
+
+.mobile-nav__wrapper.expanded {
+    /* right: 0; */
+}
+
+.mobile-nav__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.6);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(2px);
+}
+
+.mobile-nav__wrapper.expanded + .mobile-nav__overlay,
+.mobile-nav__overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav__content {
+    padding: 30px 20px 20px;
+    height: 100%;
+    overflow-y: auto;
+    color: #fff;
+}
+
+.mobile-nav__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav__close:hover {
+    background: rgba(255,107,53,0.8);
+    transform: scale(1.1);
+}
+
+/* Mobile navigation list */
+.mobile-nav__list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.mobile-nav__list li {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.mobile-nav__list a {
+    display: block;
+    padding: 15px 0;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.mobile-nav__list a:hover {
+    color: #ff6b35;
+    padding-left: 10px;
+    transform: translateX(5px);
+}
+
+/* Body lock when mobile nav is open */
+body.locked {
+    overflow: hidden;
+}
+
+/* Animated hamburger */
+.mobile-nav__wrapper.expanded .mobile-nav__btn span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-nav__wrapper.expanded .mobile-nav__btn span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-nav__wrapper.expanded .mobile-nav__btn span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Logo box styling */
+.mobile-nav__wrapper .logo-box {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.mobile-nav__wrapper .logo-box img {
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+/* Contact info in mobile nav */
+.mobile-nav__contact {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.mobile-nav__contact li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: none;
+}
+
+.mobile-nav__contact i {
+    margin-right: 12px;
+    color: #ff6b35;
+    width: 20px;
+    font-size: 16px;
+}
+
+.mobile-nav__contact a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav__contact a:hover {
+    color: #ff6b35;
+}
+
+/* Social links in mobile nav */
+.mobile-nav__social {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.mobile-nav__social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+.mobile-nav__social a:hover {
+    background: #ff6b35;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255,107,53,0.4);
+}

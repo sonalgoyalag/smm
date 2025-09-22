@@ -29,9 +29,12 @@
                     setActiveNavigation();
                 }
                 
-                // Initialize mobile navigation after header is loaded
+                // Initialize mobile navigation after mobile nav component is loaded
                 if (elementId === 'mobile-nav-component') {
-                    initializeMobileNav();
+                    // Delay initialization to ensure all DOM elements are ready
+                    //setTimeout(() => {
+                        initializeMobileNav();
+                    //}, 100);
                 }
                 
                 // Trigger custom event for component loaded
@@ -66,11 +69,81 @@
         const mainNav = document.querySelector('.main-menu__list');
         const mobileNavContainer = document.querySelector('.mobile-nav__container');
         
-        if (mainNav && mobileNavContainer) {
+        if (mainNav && mobileNavContainer && !mobileNavContainer.hasChildNodes()) {
             const mobileNav = mainNav.cloneNode(true);
             mobileNav.className = 'mobile-nav__list list-unstyled';
             mobileNavContainer.appendChild(mobileNav);
         }
+        
+        // Initialize mobile navigation event handlers
+        initializeMobileNavEvents();
+    }
+    
+    // Initialize mobile navigation event handlers
+    function initializeMobileNavEvents() {
+        // Check if events are already initialized
+        if (window.mobileNavEventsInitialized) {
+            console.log('Mobile navigation events already initialized');
+            return;
+        }
+        
+        // Remove existing event listeners to prevent duplicates
+        const togglers = document.querySelectorAll('.mobile-nav__toggler');
+        
+        togglers.forEach(toggler => {
+            // Remove any existing event listeners
+            const newToggler = toggler.cloneNode(true);
+            toggler.parentNode.replaceChild(newToggler, toggler);
+        });
+        
+        // Add fresh event listeners with animation prevention
+        const newTogglers = document.querySelectorAll('.mobile-nav__toggler');
+        newTogglers.forEach(toggler => {
+            toggler.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const mobileNavWrapper = document.querySelector('.mobile-nav__wrapper');
+                //const mobileNavOverlay = document.querySelector('.mobile-nav__overlay');
+                const body = document.body;
+                
+                if (mobileNavWrapper && !mobileNavWrapper.classList.contains('animating')) {
+                    // Prevent double animation
+                    //mobileNavWrapper.classList.add('animating');
+                    
+                    // Toggle classes
+                    mobileNavWrapper.classList.toggle('expanded');
+                    // if (mobileNavOverlay) {
+                    //     mobileNavOverlay.classList.toggle('active');
+                    // }
+                    body.classList.toggle('locked');
+                    
+                    // Remove animating class after animation completes
+                    // setTimeout(() => {
+                    //     mobileNavWrapper.classList.remove('animating');
+                    // }, 400);
+                }
+            });
+        });
+        
+        // Add overlay click to close
+        const overlay = document.querySelector('.mobile-nav__overlay');
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                const mobileNavWrapper = document.querySelector('.mobile-nav__wrapper');
+                const body = document.body;
+                
+                if (mobileNavWrapper && mobileNavWrapper.classList.contains('expanded')) {
+                    mobileNavWrapper.classList.remove('expanded');
+                    overlay.classList.remove('active');
+                    body.classList.remove('locked');
+                }
+            });
+        }
+        
+        // Mark as initialized
+        window.mobileNavEventsInitialized = true;
+        console.log('Mobile navigation events initialized');
     }
 
     // Initialize components when DOM is ready
