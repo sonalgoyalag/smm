@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Login</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #dbeafe);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      padding: 35px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+    }
+
+    .logo {
+      width: 65px;
+      height: 65px;
+      margin: 0 auto 18px;
+      background: #2563eb;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 25px;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper input {
+      padding-right: 65px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      color: #2563eb;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 14px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .login-button:hover {
+      background: #1d4ed8;
+    }
+
+    .login-button:disabled {
+      background: #93aee8;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+      overflow-wrap: anywhere;
+    }
+
+    .status.error {
+      display: block;
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .status.success {
+      display: block;
+      background: #f0fdf4;
+      color: #166534;
+    }
+
+    .welcome-card {
+      display: none;
+      text-align: center;
+    }
+
+    .welcome-card h2 {
+      color: #166534;
+      margin-bottom: 12px;
+    }
+
+    .welcome-card p {
+      color: #475569;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .logout-button {
+      padding: 11px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #e2e8f0;
+      color: #1e293b;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 420px) {
+      .login-container {
+        padding: 28px 22px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="login-container">
+
+<div id="loginSection">
+  <div class="logo">U</div>
+
+  <h1>Welcome Back</h1>
+  <p class="subtitle">Please sign in to continue</p>
+
+  <form id="loginForm">
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="Enter your phone number"
+        autocomplete="username"
+        inputmode="tel"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+
+      <div class="password-wrapper">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        >
+
+        <button
+          type="button"
+          class="toggle-password"
+          id="togglePassword"
+        >Show</button>
+      </div>
+    </div>
+
+    <button type="submit" class="login-button" id="loginButton">
+      Login
+    </button>
+
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+
+  </form>
+
+  <div class="footer">
+    Secure User Login
+  </div>
+</div>
+
+<div id="welcomeSection" class="welcome-card">
+  <div class="logo">✓</div>
+  <h2>Login Successful!</h2>
+  <p>Welcome, <strong id="userName"></strong></p>
+  <p>You have successfully logged in.</p>
+
+  <button type="button" class="logout-button" id="logoutButton">
+    Logout
+  </button>
+</div>
+
+  </div>
+
+  <script>
+    // Replace this with your deployed Google Apps Script web app URL.
+    const API_URL =
+      'https://script.google.com/macros/s/AKfycbyL7UYqAKnBFX587eMvz9KmDhdwzX3jdUYhidgnVH-apOBXJdHqnIHUatUCanyt4bGUhg/exec';
+
+    const loginForm = document.getElementById('loginForm');
+    const loginButton = document.getElementById('loginButton');
+    const statusBox = document.getElementById('status');
+
+    document.getElementById('togglePassword').addEventListener(
+      'click',
+      function () {
+        const passwordInput = document.getElementById('password');
+
+        const isHidden = passwordInput.type === 'password';
+
+        passwordInput.type = isHidden ? 'text' : 'password';
+        this.textContent = isHidden ? 'Hide' : 'Show';
+      }
+    );
+
+    function showStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = 'status ' + type;
+    }
+
+    loginForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!phone || !password) {
+        showStatus('Please enter your phone number and password.', 'error');
+        return;
+      }
+
+      if (API_URL.includes('YOUR_DEPLOYMENT_ID')) {
+        showStatus('Please configure your API URL first.', 'error');
+        return;
+      }
+
+      loginButton.disabled = true;
+      loginButton.textContent = 'Verifying...';
+      statusBox.className = 'status';
+      statusBox.textContent = '';
+
+      try {
+        const body = new URLSearchParams({
+          phone: phone,
+          password: password
+        });
+
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          body: body
+        });
+
+        if (!response.ok) {
+          throw new Error('Unable to connect to the login service.');
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+          document.getElementById('userName').textContent = result.name;
+
+          document.getElementById('loginSection').style.display = 'none';
+          document.getElementById('welcomeSection').style.display = 'block';
+
+          // Do not store the password or treat this screen as
+          // authorization to access protected resources.
+        } else {
+          showStatus(result.message || 'User not found.', 'error');
+        }
+
+      } catch (error) {
+  console.error('Login error:', error);
+
+  showStatus(
+    'Login request failed: ' + error.message +
+    '. Check the browser Console and Network tabs.',
+    'error'
+  );
+}finally {
+        loginButton.disabled = false;
+        loginButton.textContent = 'Login';
+      }
+    });
+
+    document.getElementById('logoutButton').addEventListener(
+      'click',
+      function () {
+        document.getElementById('welcomeSection').style.display = 'none';
+        document.getElementById('loginSection').style.display = 'block';
+
+        loginForm.reset();
+        document.getElementById('password').type = 'password';
+        document.getElementById('togglePassword').textContent = 'Show';
+
+        statusBox.className = 'status';
+        statusBox.textContent = '';
+      }
+    );
+  </script>
+
+</body>
